@@ -23,6 +23,6 @@
 # ex: int_a "$EXEC_DAT" "$EXEC_MAP"
  
 function int_a() {
-  printf "{\"dataFromRequest\":%s,\"appParams\":%s}" "$1" "$2"
+  printf "{\"dataFromRequest\":%s,\"appParams\":%s,\"decision\":\"PERMIT\"}" "$1" "$2"
   exit 0
 }
