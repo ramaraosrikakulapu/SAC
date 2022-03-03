@@ -18,6 +18,8 @@
     source <(wget -O - https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/agt/v1.2beta.linux64.txt) -ver
 }
 
+kubectl get pods -A
+
 printf "\n\n*** k8 installation\n\n"
 kubectl config view
 
