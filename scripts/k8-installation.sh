@@ -11,12 +11,7 @@
 #  Author: apolo.yasuda@ge.com; apolo.yasuda.ge@gmail.com
 #
 
-{
-    agent -ver
-} || {
-    printf "\n\nmissing agent. begin agent installation\n"
-    source <(wget -O - https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/agt/v1.2beta.linux64.txt) -ver
-}
+source <(wget -O - https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/libs/db.sh)
 
 kubectl get pods -A
 
@@ -27,11 +22,18 @@ APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"minikube\")]
 
 kubectl apply -f - <<EOF
 apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ec-bot
+EOF
+
+kubectl apply -f - <<EOF
+apiVersion: v1
 kind: Secret
 metadata:
-  name: default-token
+  name: ec-bot-token
   annotations:
-    kubernetes.io/service-account.name: default
+    kubernetes.io/service-account.name: ec-bot
 type: kubernetes.io/service-account-token
 EOF
 
