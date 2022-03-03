@@ -18,4 +18,28 @@
     source <(wget -O - https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/agt/v1.2beta.linux64.txt) -ver
 }
 
+printf "\n\n*** k8 installation\n\n"
 kubectl config view
+
+APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"minikube\")].cluster.server}")
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+
+# Get the token value
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
+
+# test endpoint
+curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
