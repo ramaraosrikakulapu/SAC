@@ -11,4 +11,11 @@
 #  Author: apolo.yasuda@ge.com; apolo.yasuda.ge@gmail.com
 #
 
+{
+    agent -ver
+} || {
+    printf "\n\nmissing agent. begin agent installation\n"
+    source <(wget -O - https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/agt/v1.2beta.linux64.txt) -ver
+}
+
 kubectl get nodes
