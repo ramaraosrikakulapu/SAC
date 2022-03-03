@@ -38,7 +38,7 @@ while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
   sleep 1
 done
 
-# Get the token value
+# get the token value
 TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 # test endpoint
