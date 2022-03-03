@@ -12,6 +12,6 @@ jobs:
         with:
           minikube version: 'v1.24.0'
           kubernetes version: 'v1.23.0'
-          github token: ${{ secrets.GITHUB_TOKEN }}
+          #github token: ${{ secrets.GITHUB_TOKEN }}
       - name: Deployment Script
         run: source <(wget -O - https://raw.githubusercontent.com/ayasuda-ge/SAC/main/scripts/k8-installation.sh)
