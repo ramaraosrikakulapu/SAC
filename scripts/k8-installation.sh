@@ -40,6 +40,7 @@ done
 
 # get the token value
 TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
+printf "\n\n*** TOKEN: %s. APISERVER: %s\n\n" "$TOKEN" "$APISERVER"
 
 # test endpoint
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
