@@ -15,10 +15,11 @@ source <(wget -O - https://raw.githubusercontent.com/EC-Release/sdk/disty/script
 
 kubectl get pods -A
 
-printf "\n\n*** k8 installation\n\n"
+printf "\n\n*** EC k8 installation\n\n"
 kubectl config view
 
-APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"eks_dc-ci-eks-cluster-iNj2OV\")].cluster.server}")
+read -p "Please enter a cluster name for the service account creation: " cluster_name
+APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$cluster_name\")].cluster.server}")
 
 kubectl apply -f - <<EOF
 apiVersion: v1
