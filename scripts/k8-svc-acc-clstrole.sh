@@ -51,18 +51,17 @@ rules:
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 EOF
 
-cat <<EOF | kubectl apply -f -
----
+kubectl apply -f - <<EOF
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: api-cluster-role-binding
+  name: ec-api-cluster-role-binding
 subjects:
-- namespace: devops-tools 
+- namespace: ec-engineering
   kind: ServiceAccount
-  name: api-service-account 
+  name: ec-bot 
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: api-cluster-role 
+  name: ec-api-cluster-role 
 EOF
