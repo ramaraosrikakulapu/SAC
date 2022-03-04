@@ -11,8 +11,7 @@
 #  Author: apolo.yasuda@ge.com; apolo.yasuda.ge@gmail.com
 #
 
-kubectl apply -f - <<EOF | kubectl apply -f -
----
+kubectl apply -f - <<EOF
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -52,4 +51,18 @@ rules:
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 EOF
 
-
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: api-cluster-role-binding
+subjects:
+- namespace: devops-tools 
+  kind: ServiceAccount
+  name: api-service-account 
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: api-cluster-role 
+EOF
