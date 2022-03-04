@@ -38,14 +38,14 @@ metadata:
 type: kubernetes.io/service-account-token
 EOF
 
-while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+while ! kubectl describe secret ec-bot-token | grep -E '^token' >/dev/null; do
   echo "waiting for token..." >&2
   sleep 1
 done
 printf "\n\n*** secret detail\n\n"
-kubectl get secret default-token -o json
+kubectl get secret ec-bot-token -o json
 # get the token value
-TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
+TOKEN=$(kubectl get secret ec-bot-token -o jsonpath='{.data.token}' | base64 --decode)
 printf "\n\n*** TOKEN: %s. APISERVER: %s\n\n" "$TOKEN" "$APISERVER"
 
 # test endpoint
