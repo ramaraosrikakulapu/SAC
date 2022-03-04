@@ -11,7 +11,7 @@
 #  Author: apolo.yasuda@ge.com; apolo.yasuda.ge@gmail.com
 #
 
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF | kubectl apply -f -
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -51,3 +51,5 @@ rules:
       - services
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 EOF
+
+
