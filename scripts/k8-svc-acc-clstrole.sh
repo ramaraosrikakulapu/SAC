@@ -12,6 +12,7 @@
 #
 
 kubectl apply -f - <<EOF
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -49,9 +50,7 @@ rules:
       - serviceaccounts
       - services
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-EOF
-
-kubectl apply -f - <<EOF
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
